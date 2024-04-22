@@ -22,7 +22,6 @@ const Hero = () => {
   const [payway, setPayway] = useState("eth");
   const [isConnected, setIsconnected] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [hasMetamask, setHasMetamask] = useState(false);
 
   function changeToEther() {
     setPayway("eth");
