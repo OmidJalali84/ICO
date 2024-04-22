@@ -4,7 +4,7 @@ import eth from "../../../../public/ETH.svg";
 import usdt from "../../../../public/usdt.svg";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-//import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { abi, address } from "../../../../contract";
 import {
   selectedStyle,
@@ -99,12 +99,12 @@ const Hero = () => {
 
     //wallet connect option
     const providerOptions = {
-      // walletconnect: {
-      //   package: WalletConnectProvider, // required
-      //   options: {
-      //     rpc: { 1: process.env.NEXT_PUBLIC_RPC_URL }, // required
-      //   },
-      // },
+      walletconnect: {
+        package: WalletConnectProvider, // required
+        options: {
+          rpc: { 1: process.env.NEXT_PUBLIC_RPC_URL }, // required
+        },
+      },
     };
 
     if (typeof window !== "undefined") {
