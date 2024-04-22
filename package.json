@@ -1,5 +1,6 @@
 {
   "name": "responsive-web",
+  "homepage": "https://github.com/OmidJalali84/ICO.git",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@web3-react/core": "6.1.9",
