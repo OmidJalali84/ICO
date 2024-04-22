@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      {/* <Hero /> */}
+      <Hero />
       <div className="container">
         <Contactus />
       </div>
