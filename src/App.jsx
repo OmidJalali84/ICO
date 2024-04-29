@@ -7,19 +7,24 @@ import Abt from "./assets/components/about/abt.jsx";
 import Campus from "./assets/components/campus/campus.jsx";
 import Testimonials from "./assets/components/testimonials/testimonials.jsx";
 import Contactus from "./assets/components/contactus/contactus.jsx";
+import { Web3Provider } from "./assets/components/connectKit/connect-kit.jsx";
+import { ConnectKitButton } from "connectkit";
 
 // import { Web3ReactProvider } from "@web3-react/core";
 // import { Web3Provider } from "@ethersproject/providers";
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Hero />
-      <div className="container">
-        <Contactus />
-      </div>
-    </div>
+    // <div>
+    //   <Navbar />
+    //   <Hero />
+    //   <div className="container">
+    //     <Contactus />
+    //   </div>
+    // </div>
+    <Web3Provider>
+      <ConnectKitButton />
+    </Web3Provider>
   );
 };
 
