@@ -9,21 +9,33 @@ import Testimonials from "./assets/components/testimonials/testimonials.jsx";
 import Contactus from "./assets/components/contactus/contactus.jsx";
 import { Web3Provider } from "./assets/components/connectKit/connect-kit.jsx";
 import { ConnectKitButton } from "connectkit";
+import { ConnectButton } from "./assets/components/hero/connect-button/connect-button.jsx";
+import { useState } from "react";
 
 // import { Web3ReactProvider } from "@web3-react/core";
 // import { Web3Provider } from "@ethersproject/providers";
 
 const App = () => {
+  const [isConnected, setIsconnected] = useState(false);
   return (
-    // <div>
-    //   <Navbar />
-    //   <Hero />
-    //   <div className="container">
-    //     <Contactus />
-    //   </div>
-    // </div>
     <Web3Provider>
-      <ConnectKitButton />
+      <div>
+        <Navbar>
+          <ConnectKitButton />
+        </Navbar>
+        <Hero
+          ConnectButton={<ConnectButton>{setIsconnected}</ConnectButton>}
+          isConnected={isConnected}
+        />
+        {/* <Title />
+        <Programs />
+        <Abt />
+        <Campus />
+        <Testimonials /> */}
+        <div className="container">
+          <Contactus />
+        </div>
+      </div>
     </Web3Provider>
   );
 };

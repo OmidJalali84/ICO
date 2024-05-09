@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import logo from "./../../../assets/logo.png";
+import "./nav.css";
 
-const Navbar = () => {
-  const [sticky, setSticky] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      window.scrollY > 300 ? setSticky(true) : setSticky(false);
-    });
-  }, []);
+const Navbar = ({ children }) => {
   return (
-    <nav className={`container ${sticky ? "dark-nav" : ""}`}>
-      <img src={logo} className="logo" />
-      <ul>
-        <li>Home</li>
-        <li>Program</li>
-        <li>About us</li>
-        <li>Campus</li>
-        <li>Tstimonials</li>
-        <li>
-          <button className="btn">Contact us</button>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <div className="connect-wallet"> {children}</div>
+      <nav>
+        <label class="hambmenu">
+          <input type="checkbox"></input>
+        </label>
+        <aside class="sidebar">
+          <div className="items">plans</div>
+          <div className="items">contact</div>
+          <div className="items">info</div>
+        </aside>
+      </nav>
+    </div>
   );
 };
 

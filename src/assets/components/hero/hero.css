@@ -16,8 +16,8 @@ input:focus {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(rgba(8, 9, 58, 0.7), rgba(8, 9, 58, 0.7)),
-    url("../../hero.png");
-  background-size: cover;
+    url("../../photo1714546066.jpeg");
+  background-size: 80%;
   background-position: center;
   color: white;
   display: flex;
@@ -179,7 +179,7 @@ input:focus {
   padding-left: 15px;
   font-size: 15px;
   color: rgb(255, 255, 255, 0.7);
-  background-image: url(../../token-logo.png);
+  background-image: url(../../photo1714546066-modified.png);
   background-repeat: no-repeat;
   background-position: 90%;
   background-size: 27px; /* Adjust size as needed */
@@ -194,51 +194,32 @@ input:focus {
   margin-bottom: 8px;
 }
 
-.connect-wallet-container {
+.pay-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.connect-wallet {
-  background: linear-gradient(
-    90deg,
-    rgba(120, 90, 239, 0.9),
-    rgba(24, 0, 177, 0.9)
-  );
-  border: none;
-  border-radius: 100px;
-  width: 50%;
-  height: 50px;
-  margin-top: 50px;
-  color: white;
-  font-family: Roboto;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
+.connect-wallet-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.connect-wallet:hover {
-  color: black;
-}
-
-.connect-wallet-p {
-  font-family: Roboto;
-  font-size: 12px;
-  font-weight: 100;
-  opacity: 0.7;
-  word-spacing: 3px;
-  margin-bottom: none;
-  margin-top: 10px;
-  width: 90%;
+.connect-wallet-container div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .gift-div {
   display: flex;
   flex-direction: row;
   justify-content: left;
+  margin-top: 5px;
+  margin-left: 5px;
   width: 90%;
 }
 
@@ -286,9 +267,23 @@ input:focus {
   color: black;
 }
 
+.gift-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-bonus {
+  font-size: 12px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.764);
+}
+
 .gift-input {
   height: 40px;
-  width: 70%;
+  width: 100%;
   display: block;
   background: none;
   border: solid;

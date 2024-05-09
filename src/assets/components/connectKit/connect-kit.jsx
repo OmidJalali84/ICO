@@ -1,5 +1,5 @@
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { bsc, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
@@ -9,6 +9,7 @@ const config = createConfig(
     chains: [sepolia],
     transports: {
       // RPC URL for each chain
+      //[bsc.id]: http("https://bsc-rpc.publicnode.com"),
       [sepolia.id]: http(
         "https://eth-sepolia.g.alchemy.com/v2/jiGQqYEJUZAds_iRw_ZXbd89JdlOgiJn"
       ),

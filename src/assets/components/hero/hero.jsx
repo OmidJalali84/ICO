@@ -3,8 +3,6 @@ import "./hero.css";
 import eth from "../../../../public/ETH.svg";
 import usdt from "../../../../public/usdt.svg";
 import { ethers } from "ethers";
-import Web3Modal from "web3modal";
-//import WalletConnectProvider from "@walletconnect/web3-provider";
 import { abi, address } from "../../../../contract";
 import {
   selectedStyle,
@@ -15,12 +13,11 @@ import {
 import Web3 from "web3";
 import { usdtAbi, usdtAddress } from "../../../../usdt";
 
-const Hero = () => {
+const Hero = ({ isConnected, ConnectButton }) => {
   const [seconds, setSeconds] = useState(10000000);
   const [ethValue, setEthValue] = useState("");
   const [tokenValue, setTokenValue] = useState("");
   const [payway, setPayway] = useState("eth");
-  const [isConnected, setIsconnected] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
   function changeToEther() {
@@ -94,29 +91,6 @@ const Hero = () => {
     }
   }
 
-  async function connect() {
-    let web3Modal;
-
-    //wallet connect option
-    const providerOptions = {
-      // walletconnect: {
-      //   package: WalletConnectProvider, // required
-      //   options: {
-      //     rpc: { 1: process.env.NEXT_PUBLIC_RPC_URL }, // required
-      //   },
-      // },
-    };
-
-    if (typeof window !== "undefined") {
-      web3Modal = new Web3Modal({
-        cacheProvider: false,
-        providerOptions, // required
-      });
-    }
-    const web3ModalProvider = await web3Modal.connect(); //connect to wallet
-    setIsconnected(!isConnected);
-  }
-
   async function buyToken() {
     let web3 = new Web3(window.ethereum);
     try {
@@ -164,7 +138,7 @@ const Hero = () => {
             </div>
           </div>
           <p className="usdt-raised">USDT RAISED:</p>
-          <p className="price">1 TOKEN = $1</p>
+          <p className="price">1 FISHO = $1</p>
         </div>
         <div className="buttons">
           <div className="payment-way">
@@ -222,7 +196,7 @@ const Hero = () => {
               />
             </div>
             <div className="receive">
-              <p className="you-receive">Token you receive</p>
+              <p className="you-receive">FISHO you receive</p>
               <input
                 type="number"
                 className="receive-input"
@@ -237,10 +211,7 @@ const Hero = () => {
             </div>
           </div>
           {isConnected ? (
-            <div className="connect-wallet-container">
-              <p className="connect-wallet-p">
-                Please ensure that you have at least 0.015 ETH to
-              </p>
+            <div className="pay-container">
               <div className="gift-div">
                 <p className="gift-code">I have gift code</p>{" "}
                 <input
@@ -249,17 +220,22 @@ const Hero = () => {
                   onChange={changeCheck}
                 />
               </div>
-              {isChecked ? <input type="text" className="gift-input" /> : <></>}
+              {isChecked ? (
+                <div className="gift-container">
+                  <p className="gift-bonus">
+                    Enter a gift code and get 50 FISHO as bonus
+                  </p>
+                  <input type="text" className="gift-input" />
+                </div>
+              ) : (
+                <></>
+              )}
               <button className="buy" onClick={buyToken}>
                 BUY NOW
               </button>
             </div>
           ) : (
-            <div className="connect-wallet-container">
-              <button className="connect-wallet" onClick={connect}>
-                CONNECT WALLET
-              </button>
-            </div>
+            <div className="connect-wallet-container">{ConnectButton}</div>
           )}
         </div>
       </div>
