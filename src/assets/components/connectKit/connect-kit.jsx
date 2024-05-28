@@ -6,13 +6,10 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [sepolia],
+    chains: [bsc],
     transports: {
       // RPC URL for each chain
-      //[bsc.id]: http("https://bsc-rpc.publicnode.com"),
-      [sepolia.id]: http(
-        "https://eth-sepolia.g.alchemy.com/v2/jiGQqYEJUZAds_iRw_ZXbd89JdlOgiJn"
-      ),
+      [bsc.id]: http("https://bsc-rpc.publicnode.com"),
     },
 
     // Required API Keys

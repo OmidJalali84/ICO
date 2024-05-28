@@ -32,9 +32,6 @@ const App = () => {
         <Abt />
         <Campus />
         <Testimonials /> */}
-        <div className="container">
-          <Contactus />
-        </div>
       </div>
     </Web3Provider>
   );

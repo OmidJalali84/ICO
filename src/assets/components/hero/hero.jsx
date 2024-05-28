@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./hero.css";
-import eth from "../../../../public/ETH.svg";
+import eth from "../../../../public/binance.png";
 import usdt from "../../../../public/usdt.svg";
 import { ethers } from "ethers";
 import { abi, address } from "../../../../contract";
@@ -14,11 +14,48 @@ import Web3 from "web3";
 import { usdtAbi, usdtAddress } from "../../../../usdt";
 
 const Hero = ({ isConnected, ConnectButton }) => {
-  const [seconds, setSeconds] = useState(10000000);
   const [ethValue, setEthValue] = useState("");
   const [tokenValue, setTokenValue] = useState("");
   const [payway, setPayway] = useState("eth");
   const [isChecked, setIsChecked] = useState(false);
+  let giftcode;
+  const [targetDate, setTargetDate] = useState("2024-06-20T23:59");
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    if (!targetDate) return;
+
+    const interval = setInterval(() => {
+      const countDownDate = new Date(targetDate).getTime();
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setCountdown({ days, hours, minutes, seconds });
+
+      if (distance < 0) {
+        clearInterval(interval);
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  const handleChange = (e) => {
+    setTargetDate(e.target.value);
+  };
 
   function changeToEther() {
     setPayway("eth");
@@ -33,14 +70,6 @@ const Hero = ({ isConnected, ConnectButton }) => {
     setTokenValue(0);
     console.log(payway);
   }
-  // Countdown timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   // Sync inputs
   async function syncInputs(event) {
@@ -50,14 +79,14 @@ const Hero = ({ isConnected, ConnectButton }) => {
     if (id === "eth") {
       console.log("ETH Value:", value);
       payway === "usdt"
-        ? setTokenValue(roundToDecimal(value, 1))
-        : setTokenValue(roundToDecimal(value * ethPrice, 1));
+        ? setTokenValue(roundToDecimal(value * 500, 1))
+        : setTokenValue(roundToDecimal(value * ethPrice * 500, 1));
       setEthValue(value);
     } else if (id === "token") {
       console.log("Token Value:", value);
       payway === "usdt"
-        ? setEthValue(roundToDecimal(value, 2))
-        : setEthValue(roundToDecimal(value / ethPrice, 4));
+        ? setEthValue(roundToDecimal(value / 500, 2))
+        : setEthValue(roundToDecimal(value / (ethPrice * 500), 4));
       setTokenValue(value);
     }
   }
@@ -74,7 +103,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
   async function getEthUsdtPrice() {
     try {
       const response = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,tether&vs_currencies=usd"
+        "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,tether&vs_currencies=usd"
       );
 
       if (!response.ok) {
@@ -83,7 +112,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
 
       const data = await response.json();
 
-      const ethPriceInUsd = data.ethereum.usd;
+      const ethPriceInUsd = data.binancecoin.usd;
 
       return ethPriceInUsd;
     } catch (error) {
@@ -97,16 +126,26 @@ const Hero = ({ isConnected, ConnectButton }) => {
       const accounts = await web3.eth.getAccounts();
       const contract = new web3.eth.Contract(abi, address);
       const USDTContract = new web3.eth.Contract(usdtAbi, usdtAddress);
-      payway === "eth"
-        ? await contract.methods
-            .buyTokensWithEther()
-            .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
-        : (await USDTContract.methods
-            .approve(address, ethValue * 1e18)
-            .send({ from: accounts[0] }),
-          await contract.methods
-            .buyTokensWithUSDT(ethValue)
-            .send({ from: accounts[0] }));
+      console.log(accounts[0]);
+      await contract.methods
+        .buyTokensWithEther(0)
+        .send({ from: accounts[0], value: BigInt(ethValue * 1e18) });
+
+      // let indexGiftcode = 0;
+      // giftcode == "FSH-BINGX"
+      //   ? (indexGiftcode = 1)
+      //   : giftcode == "FSH-BITCOIN"
+      //   ? (indexGiftcode = 2)
+      //   : payway === "eth"
+      //   ? await contract.methods
+      //       .buyTokensWithEther(indexGiftcode)
+      //       .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
+      //   : (await USDTContract.methods
+      //       .approve(address, ethValue * 1e18)
+      //       .send({ from: accounts[0] }),
+      //     await contract.methods
+      //       .buyTokensWithUSDT(ethValue * 500, indexGiftcode)
+      //       .send({ from: accounts[0] }));
     } catch (e) {
       console.error("Execute Contract: ", e);
     }
@@ -120,25 +159,22 @@ const Hero = ({ isConnected, ConnectButton }) => {
           <div className="countdown">
             <div className="days-c">
               <p>DAYS</p>
-              <div className="days">{Math.round(seconds / 86400)}</div>
+              <div className="days">{countdown.days}</div>
             </div>
             <div className="hours-c">
               <p>HOURS</p>
-              <div className="hours">
-                {Math.round((seconds % 86400) / 3600)}
-              </div>
+              <div className="hours">{countdown.hours}</div>
             </div>
             <div className="minuts">
               <p>MINUTS</p>
-              <div className="minuts">{Math.round((seconds % 3600) / 60)}</div>
+              <div className="minuts">{countdown.minutes}</div>
             </div>
             <div className="seconds">
               <p>SECONDS</p>
-              <div className="seconds">{Math.round(seconds % 60)}</div>
+              <div className="seconds">{countdown.seconds}</div>
             </div>
           </div>
-          <p className="usdt-raised">USDT RAISED:</p>
-          <p className="price">1 FISHO = $1</p>
+          <p className="price">1 FISHO = $0.002</p>
         </div>
         <div className="buttons">
           <div className="payment-way">
@@ -153,7 +189,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
                 onClick={changeToEther}
                 style={payway === "eth" ? pSelectedStyle : pUnSelectedStyle}
               >
-                ETH
+                BSC
               </p>
             </button>
             <button
@@ -174,7 +210,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
           <div className="input">
             <div className="pay">
               <p className="eth-you-pay">
-                {payway === "eth" ? "ETH you pay" : "USDT you pay"}
+                {payway === "eth" ? "BSC you pay" : "USDT you pay"}
               </p>
               <input
                 type="number"
@@ -187,13 +223,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
                   syncInputs(e);
                 }}
               />
-              <img
-                src={
-                  payway === "eth"
-                    ? "../../../../public/ETH.svg"
-                    : "../../../../public/usdt.svg"
-                }
-              />
+              <img src={payway === "eth" ? eth : usdt} />
             </div>
             <div className="receive">
               <p className="you-receive">FISHO you receive</p>
@@ -223,9 +253,9 @@ const Hero = ({ isConnected, ConnectButton }) => {
               {isChecked ? (
                 <div className="gift-container">
                   <p className="gift-bonus">
-                    Enter a gift code and get 50 FISHO as bonus
+                    Enter a gift code and get 1k more FISHO as bonus
                   </p>
-                  <input type="text" className="gift-input" />
+                  <input type="text" className="gift-input" value={giftcode} />
                 </div>
               ) : (
                 <></>

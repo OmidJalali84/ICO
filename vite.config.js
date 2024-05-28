@@ -9,4 +9,7 @@ export default defineConfig({
     "process.env": {},
   },
   plugins: [react(), nodePolyfills()],
+  server: {
+    port: 5500,
+  },
 });

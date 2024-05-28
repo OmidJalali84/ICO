@@ -1,4 +1,4 @@
-const usdtAddress = "0xdCdC73413C6136c9ABcC3E8d250af42947aC2Fc7";
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955";
 const usdtAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
