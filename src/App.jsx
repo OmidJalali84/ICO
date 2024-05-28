@@ -27,11 +27,12 @@ const App = () => {
           ConnectButton={<ConnectButton>{setIsconnected}</ConnectButton>}
           isConnected={isConnected}
         />
-        {/* <Title />
+        <Title />
         <Programs />
         <Abt />
         <Campus />
-        <Testimonials /> */}
+        <Testimonials />
+        <Contactus />
       </div>
     </Web3Provider>
   );

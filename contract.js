@@ -1,47 +1,15 @@
-const address = "0x2682aE55179C3E84Ed78180fa9331967aF702264";
+const address = "0x55D4598a58aBdD97aC1871B33508B2b0980d6BC8";
 const abi = [
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "_tokenPrice",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_tokensForSale",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_openingTime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_closingTime",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_priceFeedAddress",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_token",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_usdtToken",
-        type: "address",
-      },
-      {
-        internalType: "address payable",
-        name: "_owner",
-        type: "address",
-      },
+      { internalType: "uint256", name: "_tokenPrice", type: "uint256" },
+      { internalType: "uint256", name: "_tokensForSale", type: "uint256" },
+      { internalType: "uint256", name: "_openingTime", type: "uint256" },
+      { internalType: "uint256", name: "_closingTime", type: "uint256" },
+      { internalType: "address", name: "_priceFeedAddress", type: "address" },
+      { internalType: "address", name: "_token", type: "address" },
+      { internalType: "address", name: "_usdtToken", type: "address" },
+      { internalType: "address payable", name: "_owner", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -98,13 +66,7 @@ const abi = [
     type: "event",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "giftCode",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "giftCode", type: "uint256" }],
     name: "buyTokensWithEther",
     outputs: [],
     stateMutability: "payable",
@@ -112,16 +74,8 @@ const abi = [
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "giftCode",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "_amount", type: "uint256" },
+      { internalType: "uint256", name: "giftCode", type: "uint256" },
     ],
     name: "buyTokensWithUSDT",
     outputs: [],
@@ -130,11 +84,7 @@ const abi = [
   },
   {
     inputs: [
-      {
-        internalType: "address payable",
-        name: "newOwner",
-        type: "address",
-      },
+      { internalType: "address payable", name: "newOwner", type: "address" },
     ],
     name: "changeOwner",
     outputs: [],
@@ -142,13 +92,7 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "newPrice",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "newPrice", type: "uint256" }],
     name: "changePrice",
     outputs: [],
     stateMutability: "nonpayable",
@@ -157,13 +101,7 @@ const abi = [
   {
     inputs: [],
     name: "closingTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -177,58 +115,28 @@ const abi = [
   {
     inputs: [],
     name: "getRemainingTokens",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "giftCodeSales",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "openingTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "owner",
-    outputs: [
-      {
-        internalType: "address payable",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address payable", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -248,84 +156,42 @@ const abi = [
   {
     inputs: [],
     name: "token",
-    outputs: [
-      {
-        internalType: "contract ERC20",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "contract ERC20", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "tokenPrice",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "tokensBought",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "tokensForSale",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "tokensSold",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "usdtToken",
-    outputs: [
-      {
-        internalType: "contract IERC20",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -337,13 +203,7 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
     name: "withdrawToken",
     outputs: [],
     stateMutability: "nonpayable",

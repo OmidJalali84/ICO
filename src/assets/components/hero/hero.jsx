@@ -126,26 +126,22 @@ const Hero = ({ isConnected, ConnectButton }) => {
       const accounts = await web3.eth.getAccounts();
       const contract = new web3.eth.Contract(abi, address);
       const USDTContract = new web3.eth.Contract(usdtAbi, usdtAddress);
-      console.log(accounts[0]);
-      await contract.methods
-        .buyTokensWithEther(0)
-        .send({ from: accounts[0], value: BigInt(ethValue * 1e18) });
 
-      // let indexGiftcode = 0;
-      // giftcode == "FSH-BINGX"
-      //   ? (indexGiftcode = 1)
-      //   : giftcode == "FSH-BITCOIN"
-      //   ? (indexGiftcode = 2)
-      //   : payway === "eth"
-      //   ? await contract.methods
-      //       .buyTokensWithEther(indexGiftcode)
-      //       .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
-      //   : (await USDTContract.methods
-      //       .approve(address, ethValue * 1e18)
-      //       .send({ from: accounts[0] }),
-      //     await contract.methods
-      //       .buyTokensWithUSDT(ethValue * 500, indexGiftcode)
-      //       .send({ from: accounts[0] }));
+      let indexGiftcode = 0;
+      giftcode == "FSH-BINGX"
+        ? (indexGiftcode = 1)
+        : giftcode == "FSH-BITCOIN"
+        ? (indexGiftcode = 2)
+        : payway === "eth"
+        ? await contract.methods
+            .buyTokensWithEther(indexGiftcode)
+            .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
+        : (await USDTContract.methods
+            .approve(address, ethValue * 1e18)
+            .send({ from: accounts[0] }),
+          await contract.methods
+            .buyTokensWithUSDT(ethValue * 500, indexGiftcode)
+            .send({ from: accounts[0] }));
     } catch (e) {
       console.error("Execute Contract: ", e);
     }
@@ -243,7 +239,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
           {isConnected ? (
             <div className="pay-container">
               <div className="gift-div">
-                <p className="gift-code">I have gift code</p>{" "}
+                <p className="gift-code">I have referral code</p>{" "}
                 <input
                   type="checkbox"
                   className="check-mark"
@@ -252,9 +248,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
               </div>
               {isChecked ? (
                 <div className="gift-container">
-                  <p className="gift-bonus">
-                    Enter a gift code and get 1k more FISHO as bonus
-                  </p>
+                  <p className="gift-bonus">Enter a referral code</p>
                   <input type="text" className="gift-input" value={giftcode} />
                 </div>
               ) : (
