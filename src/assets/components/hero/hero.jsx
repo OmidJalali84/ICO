@@ -12,6 +12,9 @@ import {
 } from "./styles";
 import Web3 from "web3";
 import { usdtAbi, usdtAddress } from "../../../../usdt";
+import { useWriteContract } from "wagmi";
+import { parseEther } from "viem";
+import { useAccount } from "wagmi";
 
 const Hero = ({ isConnected, ConnectButton }) => {
   const [ethValue, setEthValue] = useState("");
@@ -26,7 +29,7 @@ const Hero = ({ isConnected, ConnectButton }) => {
     minutes: 0,
     seconds: 0,
   });
-
+  const { writeContract } = useWriteContract();
   useEffect(() => {
     if (!targetDate) return;
 
@@ -121,21 +124,23 @@ const Hero = ({ isConnected, ConnectButton }) => {
   }
 
   async function buyToken() {
-    let web3 = new Web3(window.ethereum);
     try {
-      const accounts = await web3.eth.getAccounts();
-      const contract = new web3.eth.Contract(abi, address);
-      const USDTContract = new web3.eth.Contract(usdtAbi, usdtAddress);
-
       let indexGiftcode = 0;
       giftcode == "FSH-BINGX"
         ? (indexGiftcode = 1)
         : giftcode == "FSH-BITCOIN"
         ? (indexGiftcode = 2)
         : payway === "eth"
-        ? await contract.methods
-            .buyTokensWithEther(indexGiftcode)
-            .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
+        ? // ? await contract.methods
+          //     .buyTokensWithEther(indexGiftcode)
+          //     .send({ from: accounts[0], value: BigInt(ethValue * 1e18) })
+          writeContract({
+            abi,
+            address,
+            functionName: "buyTokensWithEther",
+            args: [indexGiftcode],
+            value: parseEther(`${ethValue}`),
+          })
         : (await USDTContract.methods
             .approve(address, ethValue * 1e18)
             .send({ from: accounts[0] }),

@@ -10,6 +10,6 @@ export default defineConfig({
   },
   plugins: [react(), nodePolyfills()],
   server: {
-    port: 5500,
+    port: 5173,
   },
 });
